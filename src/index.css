@@ -1,14 +1,174 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: sans-serif;
+  background-color: #fbfbfb;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.wrapper {
+  width: 500px;
+  margin: 10px auto;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  padding: 20px;
+}
+
+/* 评论框样式 */
+.todo-input {
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.todo-field {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.todo-field .todo-field-name {
+  display: flex;
+  margin-top: 5px;
+  flex-basis: 100px;
+  font-size: 14px;
+}
+
+.todo-field .todo-field-input {
+  display: flex;
+  flex: 1;
+}
+
+.todo-field-input input,
+.todo-field-input textarea {
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  padding: 5px;
+  outline: none;
+  font-size: 14px;
+  resize: none;
+  flex: 1;
+}
+
+.todo-field-input input:focus,
+.todo-field-input textarea:focus {
+  outline: none;
+  border: none;
+  box-shadow: #f49f01 0 0 3px;
+  -moz-box-shadow: #f49f01 0 0 3px;
+  -webkit-box-shadow: #f49f01 0 0 3px;
+}
+
+.todo-field-input textarea {
+  height: 100px;
+}
+
+.todo-field-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.todo-field-button button {
+  padding: 5px 10px;
+  width: 80px;
+  border: none;
+  border-radius: 3px;
+  background-color: #f49f01;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.todo-field-button button:active {
+  background: #f5b949;
+}
+
+/* 评论列表样式 */
+.todo-list {
+  background-color: #fff;
+  border: 1px solid #f1f1f1;
+  padding: 20px;
+}
+
+/* 评论组件样式 */
+.todo {
+  display: flex;
+  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 20px;
+  min-height: 50px;
+  flex-direction: column;
+}
+
+.todo .todo-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo .todo-title h4 {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.todo .todo-title span {
+  width: 50px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background: #ff5d5a;
+  color: #fff;
+  cursor: pointer;
+  line-height: 30px;
+  text-align: center;
+  display: none;
+}
+
+.todo .todo-title:hover span{
+  display: block;
+}
+
+.todo:hover .todo-content{
+  display: block;
+}
+
+.todo .todo-content {
+  display: none;
+}
+
+.todo .todo-content p {
+  display: inline-block;
+  margin: 0;
+}
+
+.todo-footer{
+  padding: 20px 0 20px 5px;
+}
+
+.todo-footer input   {
+  margin: 0 30px 0 5px;
+  vertical-align: center;
+}
+
+.todo-footer p{
+  display: inline-block;
+  font-size: 12px;
+  cursor: default;
+}
+
+.todo-footer button{
+  float: right;
+  border-radius: 5px;
+  border: none;
+  background: #f49f01;
+  color: #fff;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+
+.todo-footer button:focus{
+  outline: none;
+}
+
+.todo-footer button:hover{
+  background:#ff5d5a
 }
