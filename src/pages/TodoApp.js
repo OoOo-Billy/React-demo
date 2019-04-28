@@ -28,11 +28,9 @@ export default class TodoApp extends Component {
 
   calculate(){
     let done = 0
-    // let isAllDone = false
     this.state.todoList.map((todo)=>{
       return done += todo.done ? 1 : 0
     })
-    // if(done === this.state.todoList.length)isAllDone = true
     return done
   }
 

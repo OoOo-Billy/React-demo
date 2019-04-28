@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import TodoItem from './TodoItem'
+import propTypes from 'prop-types'
 
 export default class TodoList extends Component{
-  static defaultProps = {
-    todoList: []
+  static propTypes = {
+    todoList: propTypes.array.isRequired
   }
   render(){
     if (this.props.todoList.length !== 0) {

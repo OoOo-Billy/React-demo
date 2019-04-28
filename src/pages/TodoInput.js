@@ -9,21 +9,20 @@ export default class TodoInput extends Component{
     }
   }
   handleTitleChange(event){
-    // console.log(event.target.value);
     this.setState({
       title: event.target.value
     })
   }
   handleContentChange(event){
-    // console.log(event.target.value)
     this.setState({
       content: event.target.value
     })
   }
   handleSubmit(){
+    const createdTime = +new Date()
     if (this.props.onSubmit) {
       const { title, content } = this.state
-      this.props.onSubmit({title, content})
+      this.props.onSubmit({title, content, createdTime})
     }else{
       console.log('haven\'t send a function onSubmit')
     }
@@ -35,7 +34,7 @@ export default class TodoInput extends Component{
         <div className="todo-field">
          <label htmlFor="title" className="todo-field-name">代办事项标题:</label>
          <div className="todo-field-input">
-          <input id="title" type="text" placeholder="请输入" value={this.state.title} onChange={this.handleTitleChange.bind(this)}/>
+          <input ref={(text)=>this.text=text} id="title" type="text" placeholder="请输入" value={this.state.title} onChange={this.handleTitleChange.bind(this)}/>
          </div>
         </div>
         <div className="todo-field">
@@ -49,5 +48,8 @@ export default class TodoInput extends Component{
         </div>
       </div>
     )
+  }
+  componentDidMount(){
+    this.text.focus()
   }
 }
