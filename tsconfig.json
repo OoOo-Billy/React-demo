@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "build/dist",
+    "target": "es5",
+    "module": "commonjs",
+    "allowJs": true,
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ]
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./src/index.js",
+    "./src/serviceWorker.js"
+  ]
+}
