@@ -1,18 +1,21 @@
-import React, { Component } from "react";
-import TodoItem from "./TodoItem";
-import propTypes from "prop-types";
+import React, { Component } from "react"
+import TodoItemTag from "./TodoItem"
+import { Todo } from './TodoApp'
 
-export default class TodoList extends Component {
-  static propTypes = {
-    todoList: propTypes.array.isRequired
-  };
+interface Props{
+  todoList: Array<Todo>,
+  handleDoneOne: Function
+  remove: Function
+}
+
+export default class TodoList extends Component<Props> {
   render() {
     if (this.props.todoList.length !== 0) {
       return (
         <div>
           <div className="todo-list">
-            {this.props.todoList.map((todo, index) => (
-              <TodoItem
+            {this.props.todoList.map(todo => (
+              <TodoItemTag
                 key={todo.id}
                 todo={todo}
                 handleDoneOne={this.props.handleDoneOne}
@@ -21,9 +24,9 @@ export default class TodoList extends Component {
             ))}
           </div>
         </div>
-      );
+      )
     } else {
-      return <div />;
+      return <div />
     }
   }
 }

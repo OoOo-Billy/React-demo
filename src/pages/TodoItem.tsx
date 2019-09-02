@@ -1,47 +1,57 @@
-import React, { Component } from "react";
-import propTypes from "prop-types";
+import React, { Component } from "react"
+import { Todo } from './TodoApp'
 
-export default class TodoItem extends Component {
-  static propTypes = {
-    todo: propTypes.object.isRequired
-  };
-  constructor() {
-    super();
+interface Props{
+  todo: Todo,
+  handleDoneOne: Function,
+  remove: Function
+}
+
+interface State{
+  timeString: string
+}
+
+export default class TodoItem extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
     this.state = {
       timeString: ""
-    };
+    }
   }
+
+  private _timer: number = 0
+
   componentWillMount() {
     this._updateTimeString();
-    this._timer = setInterval(this._updateTimeString.bind(this), 5000);
+    this._timer = window.setInterval(this._updateTimeString.bind(this), 5000)
   }
   commentWillUnmount() {
-    clearInterval(this._timer);
+    clearInterval(this._timer)
   }
   _updateTimeString() {
-    const todo = this.props.todo;
-    const duration = (+Date.now() - todo.createdTime) / 1000;
+    const todo = this.props.todo
+    const duration = (+Date.now() - todo.createdTime) / 1000
     this.setState({
       timeString:
         duration > 60
           ? `${Math.round(duration / 60)} 分钟前`
           : `${Math.round(Math.max(duration, 1))} 秒前`
-    });
+    })
   }
-  _getProcessedContent(content) {
+  _getProcessedContent(content: string) {
     return content
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;")
-      .replace(/`([\S\s]+?)`/g, "<code>$1</code>");
+      .replace(/`([\S\s]+?)`/g, "<code>$1</code>")
   }
   handleRemove() {
-    this.props.remove(this.props.todo.id);
+    this.props.remove(this.props.todo.id)
   }
   handleChecked() {
-    this.props.handleDoneOne(this.props.todo.id);
+    this.props.handleDoneOne(this.props.todo.id)
   }
   render() {
     return (
@@ -64,6 +74,6 @@ export default class TodoItem extends Component {
           <span>{this.state.timeString}</span>
         </div>
       </div>
-    );
+    )
   }
 }

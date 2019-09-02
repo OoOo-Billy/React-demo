@@ -1,6 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
-export default class TodoFooter extends Component {
+interface Props{
+  done: number,
+  total: number,
+  handleAllDone: () => void,
+  handleCheckedAll: (event:React.ChangeEvent<{checked: boolean}>) => void
+}
+
+export default class TodoFooter extends Component<Props> {
   render() {
     return (
       <div className="todo-footer">

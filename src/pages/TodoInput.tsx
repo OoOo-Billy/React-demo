@@ -1,32 +1,46 @@
 import React, { Component } from "react";
 
-export default class TodoInput extends Component {
-  constructor() {
-    super();
+interface Props{
+  onSubmit: Function
+}
+
+interface State{
+  title: string,
+  content: string
+}
+
+interface Event extends React.ChangeEvent<{value: string}>{}
+
+export default class TodoInput extends Component<Props, State> {
+  constructor(props:Props) {
+    super(props)
     this.state = {
       title: "",
       content: ""
-    };
+    }
   }
-  handleTitleChange(event) {
+
+  private text: HTMLInputElement | null = null
+
+  handleTitleChange(event: Event) {
     this.setState({
       title: event.target.value
-    });
+    })
   }
-  handleContentChange(event) {
+  handleContentChange(event: Event) {
     this.setState({
       content: event.target.value
-    });
+    })
   }
   handleSubmit() {
-    const createdTime = +new Date();
+    const createdTime = +new Date()
     if (this.props.onSubmit) {
-      const { title, content } = this.state;
-      this.props.onSubmit({ title, content, createdTime });
+      const { title, content } = this.state
+      this.props.onSubmit({ title, content, createdTime })
     } else {
-      console.log("haven't send a function onSubmit");
+      console.log("haven't send a function onSubmit")
     }
-    this.setState({ title: "", content: "" });
+    this.setState({ title: "", content: "" })
   }
   render() {
     return (
@@ -64,9 +78,9 @@ export default class TodoInput extends Component {
           <button onClick={this.handleSubmit.bind(this)}>发布</button>
         </div>
       </div>
-    );
+    )
   }
   componentDidMount() {
-    this.text.focus();
+    this.text && this.text.focus()
   }
 }
