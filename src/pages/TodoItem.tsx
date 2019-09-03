@@ -22,7 +22,7 @@ export default class TodoItem extends Component<Props, State> {
   private _timer: number = 0
 
   componentWillMount() {
-    this._updateTimeString();
+    this._updateTimeString()
     this._timer = window.setInterval(this._updateTimeString.bind(this), 5000)
   }
   commentWillUnmount() {

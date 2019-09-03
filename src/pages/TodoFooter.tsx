@@ -23,6 +23,6 @@ export default class TodoFooter extends Component<Props> {
         </span>
         <button onClick={this.props.handleAllDone}>清除已完成事项</button>
       </div>
-    );
+    )
   }
 }

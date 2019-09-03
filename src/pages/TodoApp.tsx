@@ -97,7 +97,6 @@ export default class TodoApp extends Component<object, State> {
       done: this.calculate()
     })
     localStorage.setItem("todoList", JSON.stringify(temp))
-    return undefined
   }
 
   async handleAllDone() {
@@ -136,6 +135,6 @@ export default class TodoApp extends Component<object, State> {
           handleCheckedAll={this.handleCheckedAll.bind(this)}
         />
       </div>
-    );
+    )
   }
 }
