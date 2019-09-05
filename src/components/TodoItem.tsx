@@ -1,18 +1,19 @@
 import React, { Component } from "react"
-import { Todo } from './TodoApp'
 
-interface Props{
+interface IProps{
   todo: Todo,
   handleDoneOne: Function,
   remove: Function
 }
 
-interface State{
+interface IState{
   timeString: string
 }
 
-export default class TodoItem extends Component<Props, State> {
-  constructor(props: Props) {
+/// <reference path="./../typescript/types.d.ts" />
+
+export default class TodoItem extends Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props)
     this.state = {
       timeString: ""
@@ -21,16 +22,19 @@ export default class TodoItem extends Component<Props, State> {
 
   private _timer: number = 0
 
+  // 生命周期
   componentWillMount() {
     this._updateTimeString()
     this._timer = window.setInterval(this._updateTimeString.bind(this), 5000)
   }
-  commentWillUnmount() {
+  componentWillUnmount() {
     clearInterval(this._timer)
   }
+
+  // 非受控方法
   _updateTimeString() {
     const todo = this.props.todo
-    const duration = (+Date.now() - todo.createdTime) / 1000
+    const duration = (Date.now() - todo.createdTime) / 1000
     this.setState({
       timeString:
         duration > 60
@@ -47,12 +51,16 @@ export default class TodoItem extends Component<Props, State> {
       .replace(/'/g, "&#039;")
       .replace(/`([\S\s]+?)`/g, "<code>$1</code>")
   }
+
+  // 受控方法
   handleRemove() {
     this.props.remove(this.props.todo.id)
   }
   handleChecked() {
     this.props.handleDoneOne(this.props.todo.id)
   }
+
+  // 渲染函数
   render() {
     return (
       <div className="todo">

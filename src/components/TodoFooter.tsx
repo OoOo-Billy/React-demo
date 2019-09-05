@@ -1,13 +1,13 @@
 import React, { Component } from "react"
 
-interface Props{
+interface IProps{
   done: number,
   total: number,
   handleAllDone: () => void,
   handleCheckedAll: (event:React.ChangeEvent<{checked: boolean}>) => void
 }
 
-export default class TodoFooter extends Component<Props> {
+export default class TodoFooter extends Component<IProps> {
   render() {
     return (
       <div className="todo-footer">

@@ -1,14 +1,15 @@
 import React, { Component } from "react"
 import TodoItemTag from "./TodoItem"
-import { Todo } from './TodoApp'
 
-interface Props{
+interface IProps{
   todoList: Array<Todo>,
   handleDoneOne: Function
   remove: Function
 }
 
-export default class TodoList extends Component<Props> {
+/// <reference path="./../typescript/types.d.ts" />
+
+export default class TodoList extends Component<IProps> {
   render() {
     if (this.props.todoList.length !== 0) {
       return (

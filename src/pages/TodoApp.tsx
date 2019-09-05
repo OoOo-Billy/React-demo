@@ -1,21 +1,23 @@
 import React, { Component } from "react"
-import TodoInput from "./TodoInput"
-import TodoList from "./TodoList"
-import TodoFooter from "./TodoFooter"
+import TodoInput from "../components/TodoInput"
+import TodoList from "../components/TodoList"
+import TodoFooter from "../components/TodoFooter"
 import tools from "../utils/tools"
 
-export interface Todo{
-  title: string,
-  content: string,
-  createdTime: number,
-  id: string,
-  done: boolean
-}
+// export interface Todo{
+//   title: string,
+//   content: string,
+//   createdTime: number,
+//   id: string,
+//   done: boolean
+// }
 
-interface State{
-  todoList: Array<Todo>,
-  done: number
-}
+// interface State{
+//   todoList: Array<Todo>,
+//   done: number
+// }
+
+/// <reference path="./../typescript/types.d.ts" />
 
 export default class TodoApp extends Component<object, State> {
   constructor(props: any) {

@@ -1,18 +1,18 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
-interface Props{
-  onSubmit: Function
+interface IProps{
+  onSubmit?: Function
 }
 
-interface State{
+interface IState{
   title: string,
   content: string
 }
 
-interface Event extends React.ChangeEvent<{value: string}>{}
+interface Event extends React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>{}
 
-export default class TodoInput extends Component<Props, State> {
-  constructor(props:Props) {
+export default class TodoInput extends Component<IProps, IState> {
+  constructor(props:IProps) {
     super(props)
     this.state = {
       title: "",
@@ -27,13 +27,15 @@ export default class TodoInput extends Component<Props, State> {
       title: event.target.value
     })
   }
+
   handleContentChange(event: Event) {
     this.setState({
       content: event.target.value
     })
   }
+
   handleSubmit() {
-    const createdTime = +new Date()
+    const createdTime = Date.now()
     if (this.props.onSubmit) {
       const { title, content } = this.state
       this.props.onSubmit({ title, content, createdTime })
@@ -42,16 +44,18 @@ export default class TodoInput extends Component<Props, State> {
     }
     this.setState({ title: "", content: "" })
   }
+
   render() {
     return (
       <div className="todo-input">
         <div className="todo-field">
+          {/* react 为了避免与 for 冲突，改成了 htmlFor */}
           <label htmlFor="title" className="todo-field-name">
             代办事项标题:
           </label>
           <div className="todo-field-input">
             <input
-              ref={text => (this.text = text)}
+              ref={inputEle => (this.text = inputEle)}
               id="title"
               type="text"
               placeholder="请输入"
@@ -61,6 +65,7 @@ export default class TodoInput extends Component<Props, State> {
           </div>
         </div>
         <div className="todo-field">
+          {/* react 为了避免与 for 冲突，改成了 htmlFor */}
           <label htmlFor="content" className="todo-field-name">
             待办事项内容:
           </label>
@@ -80,6 +85,7 @@ export default class TodoInput extends Component<Props, State> {
       </div>
     )
   }
+
   componentDidMount() {
     this.text && this.text.focus()
   }
