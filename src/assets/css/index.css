@@ -123,12 +123,14 @@ body {
   display: none;
 }
 
-.todo .todo-title:hover span{
+.todo:hover .todo-title span{
   display: block;
 }
 
 .todo:hover .todo-content{
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .todo .todo-content {
@@ -138,6 +140,11 @@ body {
 .todo .todo-content p {
   display: inline-block;
   margin: 0;
+}
+
+.todo .todo-content span {
+  flex: none;
+  margin-left: 20px;
 }
 
 .todo-footer{
