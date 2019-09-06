@@ -7,17 +7,16 @@ interface IProps{
   remove: Function
 }
 
-/// <reference path="./../typescript/types.d.ts" />
-
 export default class TodoList extends Component<IProps> {
   render() {
     if (this.props.todoList.length !== 0) {
       return (
         <div>
           <div className="todo-list">
-            {this.props.todoList.map(todo => (
+            {this.props.todoList.map((todo, index) => (
               <TodoItemTag
                 key={todo.id}
+                index={index}
                 todo={todo}
                 handleDoneOne={this.props.handleDoneOne}
                 remove={this.props.remove}

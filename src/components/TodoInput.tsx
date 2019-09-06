@@ -1,48 +1,35 @@
 import React, { Component } from "react"
+import tools from "../utils/tools"
 
 interface IProps{
-  onSubmit?: Function
+  onSubmit?: (todo:Todo) => void
 }
 
-interface IState{
-  title: string,
-  content: string
-}
-
-interface Event extends React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>{}
-
-export default class TodoInput extends Component<IProps, IState> {
-  constructor(props:IProps) {
-    super(props)
-    this.state = {
-      title: "",
-      content: ""
-    }
-  }
+export default class TodoInput extends Component<IProps> {
 
   private text: HTMLInputElement | null = null
-
-  handleTitleChange(event: Event) {
-    this.setState({
-      title: event.target.value
-    })
-  }
-
-  handleContentChange(event: Event) {
-    this.setState({
-      content: event.target.value
-    })
-  }
+  private title: string = ''
+  private content: string = ''
 
   handleSubmit() {
     const createdTime = Date.now()
     if (this.props.onSubmit) {
-      const { title, content } = this.state
-      this.props.onSubmit({ title, content, createdTime })
+      const { title, content } = this
+      const id = tools.randomId(8)
+      this.props.onSubmit({
+        id,
+        title,
+        content,
+        createdTime,
+        done: false
+      })
     } else {
       console.log("haven't send a function onSubmit")
     }
-    this.setState({ title: "", content: "" })
+    this.title = this.content = ''
+    this.text && (this.text.value = '')
+    const textareaEle = document.querySelector<HTMLTextAreaElement>('#content')
+    textareaEle && (textareaEle.value = '')
   }
 
   render() {
@@ -59,8 +46,7 @@ export default class TodoInput extends Component<IProps, IState> {
               id="title"
               type="text"
               placeholder="请输入"
-              value={this.state.title}
-              onChange={this.handleTitleChange.bind(this)}
+              onChange={(e) => this.title = e.target.value}
             />
           </div>
         </div>
@@ -73,9 +59,8 @@ export default class TodoInput extends Component<IProps, IState> {
             <textarea
               id="content"
               className="todo-field-input"
-              value={this.state.content}
               placeholder="请输入"
-              onChange={this.handleContentChange.bind(this)}
+              onChange={(e) => this.content = e.target.value}
             />
           </div>
         </div>

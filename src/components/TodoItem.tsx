@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 
 interface IProps{
+  index: number,
   todo: Todo,
   handleDoneOne: Function,
   remove: Function
@@ -9,8 +10,6 @@ interface IProps{
 interface IState{
   timeString: string
 }
-
-/// <reference path="./../typescript/types.d.ts" />
 
 export default class TodoItem extends Component<IProps, IState> {
   constructor(props: IProps) {
@@ -54,10 +53,10 @@ export default class TodoItem extends Component<IProps, IState> {
 
   // 受控方法
   handleRemove() {
-    this.props.remove(this.props.todo.id)
+    this.props.remove(this.props.index)
   }
   handleChecked() {
-    this.props.handleDoneOne(this.props.todo.id)
+    this.props.handleDoneOne(this.props.index)
   }
 
   // 渲染函数

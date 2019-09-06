@@ -1,10 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import todoListReducer from './reducers/todos'
+import './assets/css/index.css'
 import TodoApp from './pages/TodoApp'
 import * as serviceWorker from './serviceWorker'
 
-ReactDOM.render(<TodoApp />, document.getElementById('root'))
+const store = createStore(todoListReducer)
+
+ReactDOM.render(
+  <Provider store={store}>
+    <TodoApp />
+  </Provider>,
+document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

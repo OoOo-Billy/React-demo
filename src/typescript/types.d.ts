@@ -14,6 +14,7 @@ interface Todo {
 
 interface Action {
   type?: string,
+  todoList?: Array<Todo>,
   todo?: Todo,
   index?: number
 }
