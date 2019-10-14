@@ -16,5 +16,6 @@ interface Action {
   type?: string,
   todoList?: Array<Todo>,
   todo?: Todo,
-  index?: number
+  index?: number,
+  done?: boolean
 }
