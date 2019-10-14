@@ -61,21 +61,26 @@ export default class TodoItem extends Component<IProps, IState> {
 
   // 渲染函数
   render() {
+    const {
+      done,
+      title,
+      content
+    } = this.props.todo
     return (
       <div className="todo">
         <div className="todo-title">
           <input
             type="checkbox"
-            checked={this.props.todo.done}
+            checked={done}
             onChange={this.handleChecked.bind(this)}
           />
-          <h4>{this.props.todo.title}</h4>
+          <h4>{title}</h4>
           <span onClick={this.handleRemove.bind(this)}>删除</span>
         </div>
         <div className="todo-content">
           <p
             dangerouslySetInnerHTML={{
-              __html: this._getProcessedContent(this.props.todo.content)
+              __html: this._getProcessedContent(content)
             }}
           />
           <span>{this.state.timeString}</span>

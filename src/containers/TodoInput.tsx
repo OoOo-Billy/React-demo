@@ -18,11 +18,6 @@ class TodoInputContainer extends Component<IProps> {
     if (!todo.title) return alert('请输入标题')
     if (!todo.content) return alert('请输入待办事项')
 
-    // 新增待办事项保存到 LocalStorage 中
-    const { todoList } = this.props.state
-    const newTodoList = [...todoList, todo]
-    localStorage.setItem('todoList', JSON.stringify(newTodoList))
-
     // this.props.onSubmit 是 connect 传进来的
     // 会 dispatch 一个 action 去新增待办事项
     if (this.props.onSubmit) {

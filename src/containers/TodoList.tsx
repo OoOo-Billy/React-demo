@@ -34,16 +34,6 @@ class TodoListContainer extends Component<IProps> {
   }
 
   handleRemoveTodo (index: number) {
-    const { state } = this.props
-    // props 是不能变的，所以这里新建一个删除了特定下标的评论列表
-    const newTodoList = [
-      ...state.todoList.slice(0, index),
-      ...state.todoList.slice(index + 1)
-    ]
-    console.log(state.todoList)
-    console.log(newTodoList)
-    // 保存最新的评论列表到 LocalStorage
-    localStorage.setItem('todoList', JSON.stringify(newTodoList))
     if (this.props.deleteTodo) {
       // this.props.deleteTodo 是 connect 传进来的
       // 会 dispatch 一个 action 去删除评论
@@ -52,14 +42,7 @@ class TodoListContainer extends Component<IProps> {
   }
 
   handleDoneTodo (index: number) {
-    const { state } = this.props
-
-    state.todoList[index].done = true
-    const newTodoList = [...state.todoList]
-    localStorage.setItem('todoList', JSON.stringify(newTodoList))
     if (this.props.doneTodo) {
-      // this.props.deleteTodo 是 connect 传进来的
-      // 会 dispatch 一个 action 去删除评论
       this.props.doneTodo(index)
     }
   }
@@ -69,7 +52,7 @@ class TodoListContainer extends Component<IProps> {
       <TodoList
         todoList={this.props.state.todoList}
         remove={this.handleRemoveTodo.bind(this)}
-        handleDoneOne={this.handleDoneTodo}
+        handleDoneOne={this.handleDoneTodo.bind(this)}
       />
     )
   }
