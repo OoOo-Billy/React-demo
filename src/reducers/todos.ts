@@ -1,8 +1,20 @@
+import updateStorage from '../plugins/updateStorage'
+
 // action types
 const INIT_TODOLIST = 'INIT_TODOLIST'
 const ADD_TODO = 'ADD_TODO'
 const DELETE_TODO = 'DELETE_TODO'
 const DONE_TODO = 'DONE_TODO'
+const DONE_ALL = 'DONE_ALL'
+const DELETE_ALL_DONE = 'DELETE_ALL_DONE'
+
+const calculate = (todoList: Array<Todo>):number => {
+  let done = 0
+  todoList.map(todo => {
+    return (done += todo.done ? 1 : 0)
+  })
+  return done
+}
 
 // reducer
 export default function(state: State, action: Action): State | void {
@@ -20,27 +32,33 @@ export default function(state: State, action: Action): State | void {
     case INIT_TODOLIST:
       if (action.todoList) return {
         todoList: [...action.todoList],
-        done: 0
+        done: calculate(action.todoList)
       }
       break
 
     // 新增待办事项
     case ADD_TODO:
-      if (action.todo) return {
-        todoList: [...state.todoList, action.todo],
-        done: 0
+      if (action.todo) {
+        const todoList = [...state.todoList, action.todo]
+        updateStorage('todoList', todoList)
+        return {
+          todoList,
+          done: calculate(todoList)
+        }
       }
       break
 
     // 删除待办事项
     case DELETE_TODO:
       if (action.index || typeof action.index === 'number') {
+        const todoList = [
+          ...state.todoList.slice(0, action.index),
+          ...state.todoList.slice(action.index + 1),
+        ]
+        updateStorage('todoList', todoList)
         return {
-          todoList: [
-            ...state.todoList.slice(0, action.index),
-            ...state.todoList.slice(action.index + 1),
-          ],
-          done: 0
+          todoList,
+          done: calculate(todoList)
         }
       }
       break
@@ -48,13 +66,47 @@ export default function(state: State, action: Action): State | void {
     // 完成待办事项
     case DONE_TODO:
       if (action.index || typeof action.index === 'number') {
-        state.todoList[action.index].done = true
+        const newTodoList = [...state.todoList]
+        newTodoList[action.index].done = !newTodoList[action.index].done
+        updateStorage('todoList', newTodoList)
         return {
-        todoList: [...state.todoList],
-        done: 0
+          todoList: [...newTodoList],
+          done: calculate(newTodoList)
         }
       }
       break
+
+    case DONE_ALL:
+      if (action.done !== undefined) {
+        const newTodoList = [...state.todoList]
+        for (const item of newTodoList) {
+          item.done = action.done
+        }
+        updateStorage("todoList", newTodoList)
+        return {
+          todoList: [...newTodoList],
+          done: calculate(newTodoList)
+        }
+      }
+      break
+
+    case DELETE_ALL_DONE:
+      const newTodoList = []
+      for (const key in state.todoList) {
+        if (!state.todoList[key].done) {
+          newTodoList.push(state.todoList[key])
+        }
+      }
+      if (newTodoList.length === state.todoList.length) {
+        alert("并未选择任何事项")
+        return state
+      } else {
+        updateStorage("todoList", newTodoList)
+        return {
+          todoList: [...newTodoList],
+          done: calculate(newTodoList)
+        }
+      }
 
     default:
       return state
@@ -76,4 +128,12 @@ export const deleteTodo = (index: number) => {
 
 export const doneTodo = (index: number) => {
   return { type: DONE_TODO, index }
+}
+
+export const doneAll = (done: boolean) => {
+  return { type: DONE_ALL, done }
+}
+
+export const deleteAllDone = () => {
+  return { type: DELETE_ALL_DONE }
 }
