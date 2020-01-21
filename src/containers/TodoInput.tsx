@@ -7,7 +7,7 @@ import {
 
 
 interface IProps{
-  state: State,
+  // state: State,
   onSubmit?: (todo:Todo) => void
 }
 
@@ -34,14 +34,14 @@ class TodoInputContainer extends Component<IProps> {
   }
 }
 
-const mapStateToProps = (state: State) => {
-  return {
-    state: {
-      todoList: state.todoList,
-      done: state.done
-    }
-  }
-}
+// const mapStateToProps = (state: State) => {
+//   return {
+//     state: {
+//       todoList: state.todoList,
+//       done: state.done
+//     }
+//   }
+// }
 
 const mapDispatchToProps = (dispatch: Function) => {
   return {
@@ -52,6 +52,6 @@ const mapDispatchToProps = (dispatch: Function) => {
 }
 
 export default connect(
-  mapStateToProps,
+  // mapStateToProps,
   mapDispatchToProps
 )(TodoInputContainer)
