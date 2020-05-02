@@ -52,6 +52,6 @@ const mapDispatchToProps = (dispatch: Function) => {
 }
 
 export default connect(
-  // mapStateToProps,
+  null,
   mapDispatchToProps
 )(TodoInputContainer)
